@@ -1,16 +1,15 @@
 package com.huobi.api.service.account;
 
 import com.alibaba.fastjson.JSON;
-import com.huobi.api.request.account.*;
-import com.huobi.api.swaps.HuobiCoinMarginedSwapAPIOptions;
 import com.huobi.api.exception.ApiException;
+import com.huobi.api.request.account.*;
 import com.huobi.api.response.account.*;
+import com.huobi.api.swaps.HuobiCoinMarginedSwapAPIOptions;
 import com.huobi.api.util.HbdmHttpClient;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +22,12 @@ public class AccountAPIServiceImpl implements AccountAPIService {
     Logger logger = LoggerFactory.getLogger(getClass());
 
     public AccountAPIServiceImpl(String api_key, String secret_key) {
+        this("https://api.hbdm.com", api_key, secret_key);
+        this.url_prex = "https://api.hbdm.com";
+    }
+
+    public AccountAPIServiceImpl(String url, String api_key, String secret_key) {
+        this.url_prex = url;
         this.api_key = api_key;
         this.secret_key = secret_key;
     }
@@ -276,7 +281,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
         try {
             Map<String, Object> params = new HashMap<>();
             params.put("sub_uid", request.getSubUid());
-            params.put("contract_code",request.getContractCode());
+            params.put("contract_code", request.getContractCode());
             params.put("amount", request.getAmount());
             params.put("type", request.getType());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiCoinMarginedSwapAPIOptions.SWAP_MASTER_SUB_TRANSFER, params);
@@ -348,7 +353,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             if (request.getType() != null) {
                 params.put("type", request.getType());
             }
-            if (request.getStartTime()!=null) {
+            if (request.getStartTime() != null) {
                 params.put("start_time", request.getStartTime());
             }
             if (request.getEndTime() != null) {
@@ -357,11 +362,11 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             if (request.getFromId() != null) {
                 params.put("from_id", request.getFromId());
             }
-            if (request.getSize()!=null){
-                params.put("size",request.getSize());
+            if (request.getSize() != null) {
+                params.put("size", request.getSize());
             }
-            if (request.getDirect()!=null){
-                params.put("direct",request.getDirect());
+            if (request.getDirect() != null) {
+                params.put("direct", request.getDirect());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiCoinMarginedSwapAPIOptions.SWAP_FINANCIAL_RECORD_EXACT, params);
             logger.debug("body:{}", body);
@@ -381,7 +386,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
         try {
             Map<String, Object> params = new HashMap<>();
             params.put("contract_code", request.getContractCode().toUpperCase());
-            if (request.getStartTime()!=null) {
+            if (request.getStartTime() != null) {
                 params.put("start_time", request.getStartTime());
             }
             if (request.getEndTime() != null) {
@@ -390,8 +395,8 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             if (request.getPageIndex() != null) {
                 params.put("page_index", request.getPageIndex());
             }
-            if (request.getPageSize()!=null){
-                params.put("page_size",request.getPageSize());
+            if (request.getPageSize() != null) {
+                params.put("page_size", request.getPageSize());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiCoinMarginedSwapAPIOptions.SWAP_USER_SETTLEMENT_RECORDS, params);
             logger.debug("body:{}", body);
@@ -447,14 +452,14 @@ public class AccountAPIServiceImpl implements AccountAPIService {
         String body;
         try {
             Map<String, Object> params = new HashMap<>();
-            if (contractCode!=null) {
+            if (contractCode != null) {
                 params.put("contract_code", contractCode.toUpperCase());
             }
-            if (pageIndex!=null) {
+            if (pageIndex != null) {
                 params.put("page_index", pageIndex);
             }
-            if (pageSize!=null){
-                params.put("page_size",pageSize);
+            if (pageSize != null) {
+                params.put("page_size", pageSize);
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiCoinMarginedSwapAPIOptions.SWAP_SUB_ACCOUNT_INFO_LIST, params);
             logger.debug("body:{}", body);
@@ -473,8 +478,8 @@ public class AccountAPIServiceImpl implements AccountAPIService {
         String body;
         Map<String, Object> params = new HashMap<>();
         try {
-            if (StringUtils.isNotEmpty(ValuationAsset)){
-                params.put("valuation_asset",ValuationAsset.toUpperCase());
+            if (StringUtils.isNotEmpty(ValuationAsset)) {
+                params.put("valuation_asset", ValuationAsset.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiCoinMarginedSwapAPIOptions.SWAP_BALANCE_VALUATION, params);
             logger.debug("body:{}", body);

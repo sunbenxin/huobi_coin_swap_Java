@@ -12,10 +12,9 @@
 
     <groupId>com.huobi.coin.margined.swap.api</groupId>
     <artifactId>huobi-coin-margined-swap-api</artifactId>
-    <version>1.0.1</version>
-    
-    <dependencies>
+    <version>1.0.2</version>
 
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -96,5 +95,16 @@
         </dependency>
 
     </dependencies>
-
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>Releases</name>
+            <url>http://192.168.199.221:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Snapshot</name>
+            <url>http://192.168.199.221:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

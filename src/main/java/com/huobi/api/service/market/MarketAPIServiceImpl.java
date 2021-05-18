@@ -1,12 +1,12 @@
 package com.huobi.api.service.market;
 
 import com.alibaba.fastjson.JSON;
-import com.huobi.api.swaps.HuobiCoinMarginedSwapAPIOptions;
 import com.huobi.api.exception.ApiException;
 import com.huobi.api.request.account.LinearSwapBasisRequest;
 import com.huobi.api.request.account.SwapLiquidationOrdersRequest;
 import com.huobi.api.request.account.SwapMarketHistoryKlineRequest;
 import com.huobi.api.response.market.*;
+import com.huobi.api.swaps.HuobiCoinMarginedSwapAPIOptions;
 import com.huobi.api.util.HbdmHttpClient;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,6 +19,14 @@ public class MarketAPIServiceImpl implements MarketAPIService {
 
     String url_prex = "https://api.hbdm.com";
     Logger logger = LoggerFactory.getLogger(getClass());
+
+    public MarketAPIServiceImpl(String url) {
+        this();
+        this.url_prex = url;
+    }
+
+    public MarketAPIServiceImpl() {
+    }
 
     @Override
     public SwapContractInfoResponse getSwapContractInfo(String contractCode) {
@@ -547,7 +555,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
         String body;
         try {
             Map<String, Object> params = new HashMap<>();
-            if (contractCode!=null) {
+            if (contractCode != null) {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiCoinMarginedSwapAPIOptions.SWAP_LADDER_MARGIN, params);
